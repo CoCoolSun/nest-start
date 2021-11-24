@@ -7,6 +7,7 @@ import * as helmet from 'helmet';
 // 限速及频率
 import * as rateLimit from 'express-rate-limit';
 import rateLimitConfig from './config/express-rate-limit-config'
+import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, { cors: true });
@@ -14,6 +15,15 @@ async function bootstrap() {
   app.enableCors();
   app.use(helmet());
   app.use('/', rateLimit(rateLimitConfig))
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('api文档')
+    .setDescription('api接口说明文档')
+    .setVersion('1.0')
+    .addTag('nest')
+    .addBearerAuth()
+    .build()
+  const document = SwaggerModule.createDocument(app, swaggerConfig)
+  SwaggerModule.setup('doc', app, document)
   await app.listen(8010);
 }
 bootstrap();
