@@ -9,12 +9,15 @@ import { MailerModule } from "@nestjs-modules/mailer";
 // 服务监控模块
 import { StatusMonitorModule } from "nest-status-monitor";
 import statusMonitorConfig from './config/statusMonitor';
-
+// 定时调度模块
+// import { ScheduleModule } from '@nestjs/schedule';
 // 自定义模块
 import {AppController} from './app.controller';
 import { ApiModule } from './modules/api/api.module';
 import { AuthModule } from './modules/auth/auth.module';
 import {LoggerMiddleware} from './common/middleware/logger.middleware';
+import { TaskModule } from './module/task/task.module';
+import { UploadDownloadModule } from './modules/upload-download/upload-download.module';
 
 @Module({
   imports: [
@@ -28,8 +31,11 @@ import {LoggerMiddleware} from './common/middleware/logger.middleware';
       useFactory: (configService: ConfigService) => ConfigService.get('email'),
       inject: [ConfigService]
     }),
+    // ScheduleModule.forRoot(), //定时任务配置
     ApiModule,
     AuthModule,
+    TaskModule,
+    UploadDownloadModule,
   ],
   controllers: [AppController],
   providers: [],
