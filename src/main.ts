@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {NestExpressApplication} from "@nestjs/platform-express";
 import { HttpExceptionFilter } from "./common/filter/http-exception.filter";
+import { ValidationPipe } from "./common/pipes/validate.pipe";
 // HTTP头安全
 import * as helmet from 'helmet';
 // 限速及频率
@@ -17,6 +18,8 @@ async function bootstrap() {
   app.use('/', rateLimit(rateLimitConfig))
   // 全局http异常过滤
   app.useGlobalFilters(new HttpExceptionFilter())
+  // 全局类型验证管道
+  app.useGlobalPipes(new ValidationPipe())
   const swaggerConfig = new DocumentBuilder()
     .setTitle('api文档')
     .setDescription('api接口说明文档')
