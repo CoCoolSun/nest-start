@@ -6,6 +6,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule, ConfigService } from "nestjs-config";
 // 邮箱模块
 import { MailerModule } from "@nestjs-modules/mailer";
+// 服务监控模块
+import statusMonitorConfig from './config/statusMonitor';
 
 // 自定义模块
 import {AppController} from './app.controller';
