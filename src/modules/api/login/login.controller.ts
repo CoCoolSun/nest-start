@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import {ApiOperation, ApiTags} from '@nestjs/swagger';
 import { LocalAuthGuard } from '../../auth/local-auth.guard';
-import { LocalAuthGuardJwt } from '../../auth/localAuthGuardJwt';
+// import { LocalAuthGuardJwt } from '../../auth/localAuthGuardJwt';
 import { AuthService } from '../../auth/auth.service';
 import { LoginInfoDto } from "./loginInfo.dto";
 import pathConfig from '../../../config/baseConfig';
@@ -24,10 +24,10 @@ export class LoginController {
     return await this.authService.login(req.user);
   }
 
-  @ApiOperation({ summary: '测试登录鉴权' })
-  @UseGuards(LocalAuthGuardJwt)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
+  // @ApiOperation({ summary: '测试登录鉴权' })
+  // @UseGuards(LocalAuthGuardJwt)
+  // @Get('profile')
+  // getProfile(@Request() req) {
+  //   return req.user;
+  // }
 }
