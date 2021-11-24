@@ -11,6 +11,6 @@ import { ConfigService } from "nestjs-config";
     })
   ],
   providers: [UploadDownloadService],
-  exports: [ConfigService]
+  exports: [UploadDownloadService]
 })
 export class UploadDownloadModule {}
