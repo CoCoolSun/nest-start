@@ -7,7 +7,7 @@ export default {
     destination: join(process.cwd(), `/uploads/${new Date().toLocaleDateString().replace(/\//g, '')}`),
     filename: (req, file, cb) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-      const filename = `${uniqueSuffix}.${file.mimetype.split('/')[1]}`;
+      const filename = `${uniqueSuffix}_${file.originalFileName}`;
       return cb(null, filename);
     },
   })
