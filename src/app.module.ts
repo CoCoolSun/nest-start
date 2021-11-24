@@ -14,6 +14,7 @@ import statusMonitorConfig from './config/statusMonitor';
 import {AppController} from './app.controller';
 import { ApiModule } from './modules/api/api.module';
 import { AuthModule } from './modules/auth/auth.module';
+import {LoggerMiddleware} from './common/middleware/logger.middleware';
 
 @Module({
   imports: [
@@ -33,4 +34,15 @@ import { AuthModule } from './modules/auth/auth.module';
   controllers: [AppController],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  // 中间件应用
+  configure(consumer: MiddlewareConsumer): any {
+    consumer
+      .apply(LoggerMiddleware)
+      // .forRoutes('*');
+      .forRoutes({
+        path: '*',
+        method: RequestMethod.ALL
+      })
+  }
+}
